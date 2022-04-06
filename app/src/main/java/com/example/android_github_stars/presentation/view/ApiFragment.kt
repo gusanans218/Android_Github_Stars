@@ -13,37 +13,28 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.android_github_stars.databinding.FragmentApiBinding
-import com.example.android_github_stars.databinding.FragmentApiListBinding
 import com.example.android_github_stars.presentation.adapter.ApiRecyclerViewAdapter
 import com.example.android_github_stars.presentation.viewmodel.ApiFragmentItemViewModel
+import com.example.android_github_stars.presentation.viewmodel.SearchUserViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ApiFragment : Fragment() {
 
-    private lateinit var viewModel: ApiFragmentItemViewModel
+    private val binding by lazy {
+        FragmentApiBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = searchViewModel
+
+        }
+    }
+    private val searchViewModel: SearchUserViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return FragmentApiBinding.inflate(
-            inflater,
-            container,
-            false
-        ).apply {
-            lifecycleOwner = viewLifecycleOwner
-            vm = viewModel
-            recyclerView.apply {
-                setHasFixedSize(true)
-                adapter = ApiRecyclerViewAdapter(arrayListOf())
-                layoutManager = LinearLayoutManager(requireActivity())
-            }
-        }.root
-    }
-
-    override fun onStart() {
-        super.onStart()
-        viewModel.onStart()
+        return binding.root
     }
 
 }

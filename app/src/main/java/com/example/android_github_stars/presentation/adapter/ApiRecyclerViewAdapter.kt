@@ -7,10 +7,11 @@ import android.widget.TextView
 import com.example.android_github_stars.data.Item
 import com.example.android_github_stars.databinding.FragmentApiBinding
 import com.example.android_github_stars.databinding.VerticalViewItemBinding
+import com.example.android_github_stars.domain.model.ItemModel
 import com.example.android_github_stars.presentation.placeholder.PlaceholderContent.PlaceholderItem
 
 
-class ApiRecyclerViewAdapter(private var items: List<Item>)
+class ApiRecyclerViewAdapter(private var items: List<ItemModel>)
     :RecyclerView.Adapter<ApiRecyclerViewAdapter.VerticalViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
@@ -29,7 +30,7 @@ class ApiRecyclerViewAdapter(private var items: List<Item>)
         holder.bind(items[position])
     }
 
-    fun setItem(itemList: List<Item>) {
+    fun setItem(itemList: List<ItemModel>) {
         items = itemList
         notifyDataSetChanged()
     }
@@ -38,7 +39,7 @@ class ApiRecyclerViewAdapter(private var items: List<Item>)
     class VerticalViewHolder(private val binding: VerticalViewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
 
-        fun bind(item: Item) {
+        fun bind(item: ItemModel) {
             binding.item = item
         }
     }

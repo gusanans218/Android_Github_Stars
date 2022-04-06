@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.android_github_stars.R
-import com.example.android_github_stars.presentation.adapter.LocalRecyclerViewAdapter
 import com.example.android_github_stars.presentation.placeholder.PlaceholderContent
 
 
@@ -28,18 +27,10 @@ class LocalFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_local_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_local, container, false)
 
-        // Set the adapter
-        if (view is RecyclerView) {
-            with(view) {
-                layoutManager = when {
-                    columnCount <= 1 -> LinearLayoutManager(context)
-                    else -> GridLayoutManager(context, columnCount)
-                }
-                adapter = LocalRecyclerViewAdapter(PlaceholderContent.ITEMS)
-            }
-        }
+
+
         return view
     }
 
