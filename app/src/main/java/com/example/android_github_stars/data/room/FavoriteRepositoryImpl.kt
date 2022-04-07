@@ -25,4 +25,16 @@ class FavoriteRepositoryImpl(val dao: FavoriteDao):FavoriteRepository {
         return dao.deleteById(id)
     }
 
+    override fun getFavoriteByName(name: String): Single<List<FavoriteItemModel>> {
+        return dao.getAll().compose{ response ->
+            response.map { list ->
+                list.map {
+                    FavoriteMapper.favoriteDomainData(it)
+                }.filter {
+                    it.login.contains(name)
+                }
+            }
+        }
+    }
+
 }

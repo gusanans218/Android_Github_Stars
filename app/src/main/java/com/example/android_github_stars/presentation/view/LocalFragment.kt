@@ -9,33 +9,30 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.android_github_stars.R
+import com.example.android_github_stars.databinding.FragmentApiBinding
+import com.example.android_github_stars.databinding.FragmentLocalBinding
 import com.example.android_github_stars.presentation.placeholder.PlaceholderContent
+import com.example.android_github_stars.presentation.viewmodel.LocalViewModel
+import com.example.android_github_stars.presentation.viewmodel.SearchUserViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class LocalFragment : Fragment() {
 
-    private var columnCount = 1
+    private val binding by lazy {
+        FragmentLocalBinding.inflate(layoutInflater).apply {
+            lifecycleOwner = viewLifecycleOwner
+            vm = localViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-
+        }
     }
+    private val localViewModel: LocalViewModel by viewModel()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_local, container, false)
-
-
-
-        return view
-    }
-
-    companion object {
-
-
+        return binding.root
     }
 }
