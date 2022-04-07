@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
+
         // binding SetUp
         val binding = (DataBindingUtil.setContentView(
             this, R.layout.activity_main) as ActivityMainBinding)
@@ -43,8 +45,9 @@ class MainActivity : AppCompatActivity() {
         }
 
         // 3.TabLayout과 ViewPager 연결
+        val tabTitles = listOf<String>("API","로컬")
         TabLayoutMediator(binding.tabLayout, viewPager) { tab, position ->
-            tab.text = "Tab ${position + 1}"
+            tab.text = tabTitles[position]
         }.attach()
     }
 }

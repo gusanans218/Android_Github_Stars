@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.android_github_stars.R
 import com.example.android_github_stars.data.Item
 import com.example.android_github_stars.databinding.FragmentApiBinding
 import com.example.android_github_stars.databinding.VerticalViewItemBinding
@@ -15,6 +16,7 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>)
     :RecyclerView.Adapter<ApiRecyclerViewAdapter.VerticalViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
+
         return VerticalViewItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
             .run {
@@ -39,8 +41,12 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>)
     class VerticalViewHolder(private val binding: VerticalViewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
 
+
         fun bind(item: ItemModel) {
             binding.item = item
+            binding.borderStar.setOnClickListener {
+                    binding.borderStar.setImageResource(R.drawable.ic_baseline_star_24)
+            }
         }
     }
 }

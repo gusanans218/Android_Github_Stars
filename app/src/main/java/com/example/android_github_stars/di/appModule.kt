@@ -1,14 +1,21 @@
 package com.example.android_github_stars.di
 
+import android.app.Application
+import androidx.room.Room
 import androidx.viewbinding.BuildConfig
 import com.example.android_github_stars.data.API
 import com.example.android_github_stars.data.GithubUserRepositoryImpl
+import com.example.android_github_stars.data.room.FavoriteDao
+import com.example.android_github_stars.data.room.FavoriteDatabase
+import com.example.android_github_stars.data.room.FavoriteRepositoryImpl
+import com.example.android_github_stars.domain.FavoriteRepository
 import com.example.android_github_stars.domain.GithubUserRepository
 import com.example.android_github_stars.domain.usecase.SearchGitHubUserUseCase
 import com.example.android_github_stars.presentation.viewmodel.ApiFragmentItemViewModel
 import com.example.android_github_stars.presentation.viewmodel.SearchUserViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidApplication
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.CallAdapter
@@ -65,4 +72,23 @@ val appModule = module{
             .create(API::class.java)
 
     }
+
+
+    fun getAppDatabase(application: Application): FavoriteDatabase {
+        return application.let {
+            Room.databaseBuilder(it, FavoriteDatabase::class.java, "chatData.db")
+                .fallbackToDestructiveMigration()
+                .build()
+        }
+    }
+
+    fun getDao(dataBase: FavoriteDatabase) : FavoriteDao{
+        return dataBase.favoriteDao()
+    }
+
+    single { getAppDatabase(androidApplication()) }
+    single { getDao(get()) }
+    single { val repository: FavoriteRepository = FavoriteRepositoryImpl(get())
+        repository}
+
 }

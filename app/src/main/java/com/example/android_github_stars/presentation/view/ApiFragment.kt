@@ -34,6 +34,7 @@ class ApiFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return binding.root
     }
 
