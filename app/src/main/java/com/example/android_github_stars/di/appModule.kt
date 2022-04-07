@@ -10,6 +10,9 @@ import com.example.android_github_stars.data.room.FavoriteDatabase
 import com.example.android_github_stars.data.room.FavoriteRepositoryImpl
 import com.example.android_github_stars.domain.FavoriteRepository
 import com.example.android_github_stars.domain.GithubUserRepository
+import com.example.android_github_stars.domain.usecase.DeleteFavoriteUseCase
+import com.example.android_github_stars.domain.usecase.GetFavoriteListUseCase
+import com.example.android_github_stars.domain.usecase.InsertFavoriteUseCase
 import com.example.android_github_stars.domain.usecase.SearchGitHubUserUseCase
 import com.example.android_github_stars.presentation.viewmodel.ApiFragmentItemViewModel
 import com.example.android_github_stars.presentation.viewmodel.SearchUserViewModel
@@ -32,6 +35,15 @@ val appModule = module{
 
     single {
         SearchGitHubUserUseCase(get())
+    }
+    single {
+        InsertFavoriteUseCase(get())
+    }
+    single {
+        DeleteFavoriteUseCase(get())
+    }
+    single {
+        GetFavoriteListUseCase(get())
     }
 
     single {
@@ -60,7 +72,7 @@ val appModule = module{
 
     single { RxJava3CallAdapterFactory.create() as CallAdapter.Factory }
     viewModel { ApiFragmentItemViewModel()}
-    viewModel { SearchUserViewModel(get())}
+    viewModel { SearchUserViewModel(get(),get(),get(),get())}
 
     single {
         Retrofit.Builder()
