@@ -25,8 +25,8 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-val appModule = module{
-    single{
+val appModule = module {
+    single {
         GsonConverterFactory.create() as Converter.Factory
     }
 
@@ -71,9 +71,9 @@ val appModule = module{
 
 
     single { RxJava3CallAdapterFactory.create() as CallAdapter.Factory }
-    viewModel { ApiFragmentItemViewModel()}
-    viewModel { SearchUserViewModel(get(),get(),get(),get())}
-    viewModel { LocalViewModel(get(),get(),get())}
+    viewModel { ApiFragmentItemViewModel() }
+    viewModel { SearchUserViewModel(get(), get(), get(), get()) }
+    viewModel { LocalViewModel(get(), get(), get()) }
 
     single {
         Retrofit.Builder()
@@ -95,13 +95,15 @@ val appModule = module{
         }
     }
 
-    fun getDao(dataBase: FavoriteDatabase) : FavoriteDao{
+    fun getDao(dataBase: FavoriteDatabase): FavoriteDao {
         return dataBase.favoriteDao()
     }
 
     single { getAppDatabase(androidApplication()) }
     single { getDao(get()) }
-    single { val repository: FavoriteRepository = FavoriteRepositoryImpl(get())
-        repository}
+    single {
+        val repository: FavoriteRepository = FavoriteRepositoryImpl(get())
+        repository
+    }
 
 }

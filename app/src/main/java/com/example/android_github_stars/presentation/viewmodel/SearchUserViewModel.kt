@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android_github_stars.domain.model.FavoriteItemModel
+import com.example.android_github_stars.domain.model.ItemModel
 import com.example.android_github_stars.domain.usecase.DeleteFavoriteUseCase
 import com.example.android_github_stars.domain.usecase.GetFavoriteListUseCase
 import com.example.android_github_stars.domain.usecase.InsertFavoriteUseCase
@@ -20,15 +21,14 @@ class SearchUserViewModel(
     val insertFavoriteUseCase: InsertFavoriteUseCase,
     val deleteFavoriteUseCase: DeleteFavoriteUseCase,
     val getFavoriteListUseCase: GetFavoriteListUseCase
-):ViewModel() {
+) : ViewModel() {
     val text = MutableLiveData<String>("")
     val dispose = CompositeDisposable()
-    val adapter = ApiRecyclerViewAdapter(listOf(),onClickFavorite = object : OnClickFavorite{
+    val adapter = ApiRecyclerViewAdapter(listOf(), onClickFavorite = object : OnClickFavorite {
         override fun onClickStar(itemModel: FavoriteItemModel, type: Int) {
-            if (type == 1){
+            if (type == 1) {
                 insertFavorite(itemModel)
-            }
-            else{
+            } else {
                 deleteFavorite(itemModel.id)
             }
         }
@@ -40,49 +40,60 @@ class SearchUserViewModel(
         super.onCleared()
         dispose.dispose()
     }
-    fun searchGithubUser(searchText:String){
+
+    fun searchGithubUser(searchText: String) {
         searchGitHubUserUseCase(searchText = searchText)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                Log.d("Name = Response",it.toString())
-                adapter.setItem(it.items)
+            .subscribe({ gitHubModel ->
+                val returnList = arrayListOf<ItemModel>()
+                var item: Char = 0.toChar()
+
+                gitHubModel.items.sortedBy { it.login.lowercase()[0].code }.forEach { itemModel ->
+                    if (item < itemModel.login.lowercase()[0]) {
+                        item = itemModel.login.lowercase()[0]
+                        returnList.add(ItemModel("", 0, item.toString()))
+                    }
+                    returnList.add(itemModel)
+                }
+
+                adapter.setItem(returnList)
                 getFavorite()
-            },{
+            }, {
                 it.printStackTrace()
             }).addTo(dispose)
 
     }
 
-    fun deleteFavorite(id:Int){
+    fun deleteFavorite(id: Int) {
         deleteFavoriteUseCase(id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-            },{
+            }, {
                 it.printStackTrace()
             }).addTo(dispose)
 
     }
 
-    fun insertFavorite(itemModel: FavoriteItemModel){
+    fun insertFavorite(itemModel: FavoriteItemModel) {
         insertFavoriteUseCase(itemModel)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-            },{
+            }, {
                 it.printStackTrace()
             }).addTo(dispose)
 
     }
 
-    fun getFavorite(){
+    fun getFavorite() {
         getFavoriteListUseCase()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                       adapter.getFavorite(it)
-            },{
+                adapter.getFavorite(it)
+            }, {
                 it.printStackTrace()
             }).addTo(dispose)
 

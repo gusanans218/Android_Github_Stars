@@ -6,7 +6,7 @@ import io.reactivex.rxjava3.core.Single
 
 interface FavoriteRepository {
     fun getAll(): Single<List<FavoriteItemModel>>
-    fun insert(insertone:FavoriteItemModel):Completable
-    fun deleteById(id:Int):Completable
-    fun getFavoriteByName(name:String): Single<List<FavoriteItemModel>>
+    fun insert(insertone: FavoriteItemModel): Completable
+    fun deleteById(id: Int): Completable
+    fun getFavoriteByName(name: String): Single<List<FavoriteItemModel>>
 }

@@ -17,10 +17,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
 
-
         // binding SetUp
         val binding = (DataBindingUtil.setContentView(
-            this, R.layout.activity_main) as ActivityMainBinding)
+            this, R.layout.activity_main
+        ) as ActivityMainBinding)
             .apply {
                 lifecycleOwner = this@MainActivity
             }
@@ -39,13 +39,13 @@ class MainActivity : AppCompatActivity() {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    Log.d("ViewPagerFragment", "Page ${position+1}")
+                    Log.d("ViewPagerFragment", "Page ${position + 1}")
                 }
             })
         }
 
         // 3.TabLayout과 ViewPager 연결
-        val tabTitles = listOf<String>("API","로컬")
+        val tabTitles = listOf<String>("API", "로컬")
         TabLayoutMediator(binding.tabLayout, viewPager) { tab, position ->
             tab.text = tabTitles[position]
         }.attach()

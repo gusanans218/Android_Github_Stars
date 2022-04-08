@@ -16,8 +16,9 @@ object AdapterBindings {
 
     @JvmStatic
     @BindingAdapter("app:userImage")
-    fun bindItem(imageView: ImageView, imageUrl: String?){
-            Glide.with(imageView.context).load(imageUrl).transform(CenterCrop(),RoundedCorners(150)).fitCenter().into(imageView)
-        }
+    fun bindItem(imageView: ImageView, imageUrl: String?) {
+        Glide.with(imageView.context).load(imageUrl).transform(CenterCrop(), RoundedCorners(150))
+            .fitCenter().into(imageView)
+    }
 
 }

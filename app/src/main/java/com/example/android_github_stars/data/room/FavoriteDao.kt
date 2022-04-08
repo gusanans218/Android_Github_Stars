@@ -9,11 +9,11 @@ import io.reactivex.rxjava3.core.Single
 @Dao
 interface FavoriteDao {
     @Query("select * from FavoriteItem")
-    fun getAll():Single<List<FavoriteItem>>
+    fun getAll(): Single<List<FavoriteItem>>
 
     @Insert
-    fun insert(item:FavoriteItem):Completable
+    fun insert(item: FavoriteItem): Completable
 
     @Query("delete from FavoriteItem WHERE id=:id")
-    fun deleteById(id:Int):Completable
+    fun deleteById(id: Int): Completable
 }

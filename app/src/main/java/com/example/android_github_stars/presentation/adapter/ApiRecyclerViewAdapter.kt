@@ -8,6 +8,7 @@ import com.example.android_github_stars.R
 import com.example.android_github_stars.data.Item
 import com.example.android_github_stars.data.room.FavoriteItem
 import com.example.android_github_stars.databinding.FragmentApiBinding
+import com.example.android_github_stars.databinding.ItemHeaderBinding
 import com.example.android_github_stars.databinding.VerticalViewItemBinding
 import com.example.android_github_stars.domain.model.FavoriteItemModel
 import com.example.android_github_stars.domain.model.ItemModel
@@ -15,24 +16,36 @@ import com.example.android_github_stars.presentation.placeholder.PlaceholderCont
 
 
 class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavorite: OnClickFavorite)
-    :RecyclerView.Adapter<ApiRecyclerViewAdapter.VerticalViewHolder>(){
+    :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
     val arrayList = ArrayList<Int>()
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VerticalViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-        return VerticalViewItemBinding
-            .inflate(LayoutInflater.from(parent.context), parent, false)
-            .run {
-                VerticalViewHolder(this)
-            }
+        return if(viewType == 1) {
+            VerticalViewItemBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
+                .run {
+                    VerticalViewHolder(this)
+                }
+        } else {
+            ItemHeaderBinding
+                .inflate(LayoutInflater.from(parent.context), parent, false)
+                .run {
+                    HeaderViewHolder(this)
+                }
+        }
     }
 
     override fun getItemCount(): Int {
         return items.size
     }
 
-    override fun onBindViewHolder(holder: VerticalViewHolder, position: Int) {
-        holder.bind(items[position],position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if(holder.itemViewType == 0){
+            (holder as HeaderViewHolder).bind(items[position].login)
+        } else {
+            (holder as VerticalViewHolder).bind(items[position], position)
+        }
     }
 
     fun setItem(itemList: List<ItemModel>) {
@@ -49,6 +62,14 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavor
                     notifyItemChanged(index)
                 }
             }
+        }
+    }
+
+    inner class HeaderViewHolder(private val binding: ItemHeaderBinding)
+        : RecyclerView.ViewHolder(binding.root){
+
+        fun bind(title: String) {
+            binding.title = title
         }
     }
 
@@ -76,6 +97,14 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavor
                     binding.borderStar.setImageResource(R.drawable.ic_baseline_star_border_24)
                 }
             }
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (items[position].id == 0) {
+            0
+        } else {
+            1
         }
     }
 }

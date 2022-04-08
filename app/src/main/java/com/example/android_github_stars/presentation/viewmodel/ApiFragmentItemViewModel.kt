@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android_github_stars.data.Item
 
-class ApiFragmentItemViewModel:ViewModel() {
+class ApiFragmentItemViewModel : ViewModel() {
     private val _itemList = MutableLiveData<List<Item>>()
     val itemList: LiveData<List<Item>>
         get() = _itemList

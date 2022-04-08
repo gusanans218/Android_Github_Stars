@@ -6,7 +6,9 @@ import retrofit2.http.Query
 
 interface API {
     @GET("search/users")
-     fun getSearchUsers(
-        @Query("q") username : String
+    fun getSearchUsers(
+        @Query("q") username: String,
+        @Query("page") page: Int = 1,
+        @Query("per_page") per_page: Int = 100
     ): Single<GithubUser>
 }

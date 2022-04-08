@@ -14,11 +14,11 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 
-class LocalViewModel (
+class LocalViewModel(
     val searchFavoriteUseCase: SearchFavoriteUseCase,
     val insertFavoriteUseCase: InsertFavoriteUseCase,
     val deleteFavoriteUseCase: DeleteFavoriteUseCase,
-): ViewModel() {
+) : ViewModel() {
     val text = MutableLiveData<String>("")
     val dispose = CompositeDisposable()
     val adapter = LocalAdapter(listOf(), onClickLocalFavorite = object : OnClickLocalFavorite {

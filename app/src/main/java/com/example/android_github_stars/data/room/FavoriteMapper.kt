@@ -4,7 +4,7 @@ import com.example.android_github_stars.domain.model.FavoriteItemModel
 
 object FavoriteMapper {
 
-    fun favoriteDomainData(favoriteItem: FavoriteItem):FavoriteItemModel{
+    fun favoriteDomainData(favoriteItem: FavoriteItem): FavoriteItemModel {
         return FavoriteItemModel(
             id = favoriteItem.id,
             avatarUrl = favoriteItem.avatarUrl,
@@ -13,7 +13,7 @@ object FavoriteMapper {
 
     }
 
-    fun favoriteDataDomain(favoriteItemModel: FavoriteItemModel):FavoriteItem{
+    fun favoriteDataDomain(favoriteItemModel: FavoriteItemModel): FavoriteItem {
         return FavoriteItem(
             id = favoriteItemModel.id,
             avatarUrl = favoriteItemModel.avatarUrl,
