@@ -1,6 +1,5 @@
 package com.example.android_github_stars.data
 
-
 import com.google.gson.annotations.SerializedName
 
 data class GithubUser(

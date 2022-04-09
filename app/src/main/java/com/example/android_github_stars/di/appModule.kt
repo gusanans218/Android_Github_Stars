@@ -11,7 +11,6 @@ import com.example.android_github_stars.data.room.FavoriteRepositoryImpl
 import com.example.android_github_stars.domain.FavoriteRepository
 import com.example.android_github_stars.domain.GithubUserRepository
 import com.example.android_github_stars.domain.usecase.*
-import com.example.android_github_stars.presentation.viewmodel.ApiFragmentItemViewModel
 import com.example.android_github_stars.presentation.viewmodel.LocalViewModel
 import com.example.android_github_stars.presentation.viewmodel.SearchUserViewModel
 import okhttp3.OkHttpClient
@@ -24,6 +23,8 @@ import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+
+// 의존성 주입을 위해 앱 모듈을 사용하였습니다.
 
 val appModule = module {
     single {
@@ -71,7 +72,6 @@ val appModule = module {
 
 
     single { RxJava3CallAdapterFactory.create() as CallAdapter.Factory }
-    viewModel { ApiFragmentItemViewModel() }
     viewModel { SearchUserViewModel(get(), get(), get(), get()) }
     viewModel { LocalViewModel(get(), get(), get()) }
 

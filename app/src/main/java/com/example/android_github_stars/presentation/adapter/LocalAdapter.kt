@@ -8,6 +8,9 @@ import com.example.android_github_stars.databinding.FavoriteLocalBinding
 import com.example.android_github_stars.databinding.ItemHeaderBinding
 import com.example.android_github_stars.domain.model.FavoriteItemModel
 
+// 리사이클러뷰에 Room User 검색 결과값을 보여줍니다.
+
+
 class LocalAdapter(
     private var items: List<FavoriteItemModel>,
     val onClickLocalFavorite: OnClickLocalFavorite

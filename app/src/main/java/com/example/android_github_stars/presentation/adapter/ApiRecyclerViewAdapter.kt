@@ -1,19 +1,15 @@
 package com.example.android_github_stars.presentation.adapter
 
-import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.example.android_github_stars.R
-import com.example.android_github_stars.data.Item
-import com.example.android_github_stars.data.room.FavoriteItem
-import com.example.android_github_stars.databinding.FragmentApiBinding
 import com.example.android_github_stars.databinding.ItemHeaderBinding
 import com.example.android_github_stars.databinding.VerticalViewItemBinding
 import com.example.android_github_stars.domain.model.FavoriteItemModel
 import com.example.android_github_stars.domain.model.ItemModel
-import com.example.android_github_stars.presentation.placeholder.PlaceholderContent.PlaceholderItem
 
+// 리사이클러뷰에 깃허브 User 검색 결과값을 보여줍니다.
 
 class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavorite: OnClickFavorite)
     :RecyclerView.Adapter<RecyclerView.ViewHolder>(){
@@ -65,6 +61,7 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavor
         }
     }
 
+    // 초성 헤더를 보여줍니다.
     inner class HeaderViewHolder(private val binding: ItemHeaderBinding)
         : RecyclerView.ViewHolder(binding.root){
 
@@ -73,7 +70,7 @@ class ApiRecyclerViewAdapter(private var items: List<ItemModel>,val onClickFavor
         }
     }
 
-    // ViewHolder
+    // UserList에 User를 한 명씩 보여줍니다.
     inner class VerticalViewHolder(private val binding: VerticalViewItemBinding)
         :RecyclerView.ViewHolder(binding.root){
 
