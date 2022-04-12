@@ -59,7 +59,7 @@ val appModule = module {
             } else {
                 HttpLoggingInterceptor.Level.NONE
             }
-        };
+        }
 
 
         OkHttpClient.Builder()
